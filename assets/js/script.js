@@ -20,18 +20,14 @@ function runProgress() {
 const stateAbbrevs = [
   "AL",
   "AK",
-  "AS",
   "AZ",
   "AR",
   "CA",
   "CO",
   "CT",
   "DE",
-  "DC",
-  "FM",
   "FL",
   "GA",
-  "GU",
   "HI",
   "ID",
   "IL",
@@ -41,7 +37,6 @@ const stateAbbrevs = [
   "KY",
   "LA",
   "ME",
-  "MH",
   "MD",
   "MA",
   "MI",
@@ -57,13 +52,10 @@ const stateAbbrevs = [
   "NY",
   "NC",
   "ND",
-  "MP",
   "OH",
   "OK",
   "OR",
-  "PW",
   "PA",
-  "PR",
   "RI",
   "SC",
   "SD",
@@ -71,7 +63,6 @@ const stateAbbrevs = [
   "TX",
   "UT",
   "VT",
-  "VI",
   "VA",
   "WA",
   "WV",
@@ -86,10 +77,14 @@ function filterArray(userInput) {
     return;
   } else {
     const result = stateAbbrevs.filter((word) => {
-      for (let i = 0; i < userInput.length; i++) {
-        if (word[i] == userInput[i]) {
-          return word
+      if (userInput.length < 2) {
+        for (let i = 0; i < userInput.length; i++) {
+          if (word[i] === userInput[i]) {
+            return word;
+          }
         }
+      } else {
+        return word === userInput;
       }
     });
     generateOptions(result);
@@ -99,12 +94,12 @@ function filterArray(userInput) {
 // function to generate autofill options
 function generateOptions(array) {
   genOptions.innerHTML = "";
-  array.map(state => {
+  array.map((state) => {
     const pTag = document.createElement("p");
     pTag.innerText = state;
     pTag.classList.add("p-tag");
     genOptions.append(pTag);
-  })
+  });
 }
 
 // updates the value when change happens
@@ -121,11 +116,11 @@ function updateInput(e) {
   console.log(chosenOption);
 }
 
-genOptions.addEventListener('click', function (e) {
+genOptions.addEventListener("click", function (e) {
   // But only alert for elements that have an p-tag class
-  if (e.target.classList.contains('p-tag')) {
+  if (e.target.classList.contains("p-tag")) {
     input.value = e.target.innerHTML;
-    genOptions.innerHTML= "";
+    genOptions.innerHTML = "";
   }
 });
 
