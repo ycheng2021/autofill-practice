@@ -102,6 +102,7 @@ function generateOptions(array) {
   array.map(state => {
     const pTag = document.createElement("p");
     pTag.innerText = state;
+    pTag.classList.add("p-tag");
     genOptions.append(pTag);
   })
 }
@@ -113,6 +114,20 @@ function updateValue(e) {
   userInput = e.target.value;
   filterArray(userInput);
 }
+
+function updateInput(e) {
+  e.preventDefault();
+  chosenOption = e.target.value;
+  console.log(chosenOption);
+}
+
+genOptions.addEventListener('click', function (e) {
+  // But only alert for elements that have an p-tag class
+  if (e.target.classList.contains('p-tag')) {
+    input.value = e.target.innerHTML;
+    genOptions.innerHTML= "";
+  }
+});
 
 // reset button to clear out interval and set x back to 0
 resetButton.addEventListener("click", function () {
