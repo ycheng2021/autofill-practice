@@ -4,7 +4,6 @@ const input = document.getElementById("input");
 const genOptions = document.getElementById("gen-options");
 
 timeInterval = setInterval(runProgress, 100);
-
 let x = 0;
 
 // function to make the progress bar run
@@ -17,6 +16,7 @@ function runProgress() {
   }
 }
 
+// array of state abbreviations
 const stateAbbrevs = [
   "AL",
   "AK",
@@ -102,20 +102,16 @@ function generateOptions(array) {
   });
 }
 
-// updates the value when change happens
+// updates the value when change happens to input field
 input.addEventListener("input", updateValue);
 
+// function to filter the array based on input
 function updateValue(e) {
   userInput = e.target.value;
   filterArray(userInput);
 }
 
-function updateInput(e) {
-  e.preventDefault();
-  chosenOption = e.target.value;
-  console.log(chosenOption);
-}
-
+// event listener for the autofill options to override the user input when clicked
 genOptions.addEventListener("click", function (e) {
   // But only alert for elements that have an p-tag class
   if (e.target.classList.contains("p-tag")) {
@@ -124,7 +120,7 @@ genOptions.addEventListener("click", function (e) {
   }
 });
 
-// reset button to clear out interval and set x back to 0
+// reset button to clear out interval and set x back to 0 in progress bar
 resetButton.addEventListener("click", function () {
   barWidth.innerHTML = "";
   clearInterval(timeInterval);
